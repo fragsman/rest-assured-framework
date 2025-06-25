@@ -49,6 +49,10 @@ public class EnvironmentManager {
     public String getBaseUrl() {
     	return envCfg.getBaseUrl();
     }
+
+    public String getBaseUri(){
+        return envCfg.getBaseUri();
+    }
     
     public String getDriverKey() {
     	return envCfg.getDriverKey();

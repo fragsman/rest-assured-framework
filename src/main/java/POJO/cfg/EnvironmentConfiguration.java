@@ -12,11 +12,12 @@ public class EnvironmentConfiguration {
 	private int implicitlyWait;
 	private String driverKey;
 	private String baseUrl;
+	private String baseUri;
 	
 	public EnvironmentConfiguration() {}
 	
 	public EnvironmentConfiguration(String browser, boolean headless, @Nullable HeadlessOptions headlessOptions,
-			boolean windowMaximize, String driverPath, int implicitlyWait, String driverKey, String baseUrl) {
+			boolean windowMaximize, String driverPath, int implicitlyWait, String driverKey, String baseUrl, String baseUri) {
 		super();
 		this.browser = browser;
 		this.headless = headless;
@@ -26,6 +27,7 @@ public class EnvironmentConfiguration {
 		this.implicitlyWait = implicitlyWait;
 		this.driverKey = driverKey;
 		this.baseUrl = baseUrl;
+		this.baseUri = baseUri;
 	}
 	public String getBrowser() {
 		return browser;
@@ -74,5 +76,11 @@ public class EnvironmentConfiguration {
 	}
 	public void setBaseUrl(String baseUrl) {
 		this.baseUrl = baseUrl;
+	}
+	public String getBaseUri() {
+		return baseUri;
+	}
+	public void setBaseUri(String baseUri) {
+		this.baseUri = baseUri;
 	}
 }

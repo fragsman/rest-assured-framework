@@ -9,5 +9,6 @@
 	"driverPath": "C:\\SeleniumWebDrivers\\EdgeDriver\\msedgedriver.exe",
 	"implicitlyWait" : 30,
 	"driverKey" : "webdriver.edge.driver",
-	"baseUrl":"https://conduit.bondaracademy.com/"
+	"baseUrl":"https://conduit.bondaracademy.com/",
+	"baseUri": "https://conduit-api.bondaracademy.com/api"
 }
