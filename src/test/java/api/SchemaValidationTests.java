@@ -1,12 +1,11 @@
 package api;
 
-import base.BaseTest;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SchemaValidationTests extends BaseTest {
+public class SchemaValidationTests {
 
     @Test
     @Tag("pepe")

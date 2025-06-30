@@ -1,27 +1,42 @@
 package api;
 
-import base.BaseTest;
-import io.restassured.RestAssured;
+import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.Matchers.equalTo;
+import support.MyAssert;
+import utils.APIHandler;
 
-public class APITests extends BaseTest {
+public class APITests {
 
     @Test
-    @DisplayName("Printing all tags and verifying the first tag is 'Test'")
-    public void test1(){
-        Response res = (Response) RestAssured.get("/tags");
-        res.then().body("tags[0]", equalTo("Test"));
-        System.out.println(res.prettyPrint());
+    @DisplayName("First tag is named Test")
+    public void verifyFirstTagInTheTagEndpoint(){
+        Response res = APIHandler.getEndpoint("/tags");
+        MyAssert.verifyPropertyValue(res,"tags[0]","Test");
     }
 
     @Test
     @DisplayName("Printing all the articles")
-    public void test2(){
-        Response res = (Response) RestAssured.get("/articles?limit=10&offset=0");
-        System.out.println(res.prettyPrint());
+    public void printingAllTheArticles(){
+        Response res = APIHandler.getEndpoint("/articles?limit=10&offset=0");
+        Allure.addAttachment("/articles endpoint response", res.prettyPrint());
+    }
+
+    @Test
+    @DisplayName("Verify articles limit return correct amount of articles")
+    public void verityArticlesLimit(){
+        int articleLimit = 5;
+        Response res = APIHandler.getEndpoint("/articles?limit="+articleLimit+"&offset=0");
+        MyAssert.verifyNumberOfNodesFor(res,"articles", articleLimit);
+    }
+
+    @Test
+    @DisplayName("Verify 'articlesCount' property is correct")
+    public void verifyArticlesCountProperty(){
+        int articleLimit = 5;
+        Response res = APIHandler.getEndpoint("/articles?limit="+articleLimit+"&offset=0");
+        MyAssert.verifyPropertyValue(res,"articlesCount",articleLimit);
     }
 
 }

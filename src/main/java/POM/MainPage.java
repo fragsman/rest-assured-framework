@@ -1,5 +1,6 @@
 package POM;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +16,8 @@ public class MainPage extends BasePage{
 	public MainPage(WebDriver driver) {
         super(driver);
     }
-	
+
+    @Step("Get tags from main page UI")
     public List<String> getTags() {
         List<WebElement> rawTags = Interactor.findElements(driver, tagsSelector);
         List<String> tagNames = rawTags.stream()
@@ -23,6 +25,11 @@ public class MainPage extends BasePage{
                 .collect(Collectors.toList());
 
         return tagNames;
+    }
+
+    @Step("Get page title")
+    public String getPageTitle(){
+        return Interactor.findElement(driver, pageTitle).getText();
     }
 
 }
