@@ -29,8 +29,14 @@ public class MyAssert {
         assertEquals(apiTags,pageTags);
     }
 
+    //TODO: See https://github.com/fragsman/rest-assured-framework/issues/3
     @Step("Verify two texts")
-    public static void verifyText(String expected, String actual){
+    public static void verifyTextAreEquals(String expected, String actual){
+        assertEquals("'"+expected+"'", "'"+actual+"'");
+    }
+
+    @Step("Verify two numbers")
+    public static void verifyNumbersAreEquals(Integer expected, Integer actual){
         assertEquals(expected, actual);
     }
 }
