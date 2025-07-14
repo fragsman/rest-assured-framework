@@ -12,13 +12,12 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <allure.version>2.29.1</allure.version>
         <aspectj.version>1.9.24</aspectj.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- To avoid unify Junit packages versions, further dependencies won't specify version -->
+            <!-- Unifies Junit packages versions, further dependencies won't specify version -->
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
@@ -27,10 +26,11 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Unifies Allure packages versions, further dependencies won't specify version -->
             <dependency>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-bom</artifactId>
-                <version>${allure.version}</version>
+                <version>2.29.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -39,49 +39,59 @@
 
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <!-- Junit5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
+        <!-- To discover and execute tests with Junit5 -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- Allure Reports -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- Allure Reports and Rest Assured support -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!-- Selenium Java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.33.0</version>
         </dependency>
 
+        <!-- Rest Assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>5.5.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <!-- Jackson JSON support -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.19.0</version>
+        </dependency>
+
+        <!-- To pass JSon parameters to specific requests -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250517</version>
         </dependency>
 
         <!-- For parsing JSON Files -->
@@ -89,15 +99,6 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>json-path</artifactId>
             <version>5.5.5</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- For parsing XML Files -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>xml-path</artifactId>
-            <version>5.5.5</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- For JSON Schema validation -->
@@ -108,6 +109,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Null annotation support -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>

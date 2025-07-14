@@ -1,48 +1,90 @@
 {
-  "articles": [
-    {
-      "slug": 2,
-      "title": "The very first article example",
-      "description": "Just a description for this article",
-      "body": "I was so alone. .. yeahh you need to listen. I'm starting to trip.. I'm losing my grip. Avril Lavigne Song.",
-      "tagList": [
-        "qa career",
-        "Avril Lavigne",
-        "QA Skills",
-        "Value-Focused"
-      ],
-      "createdAt": "2024-01-27T21:52:32.682Z",
-      "updatedAt": "2024-01-27T21:52:32.682Z",
-      "favorited": false,
-      "favoritesCount": 690,
-      "author": {
-        "username": "Artem Bondar",
-        "bio": null,
-        "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
-        "following": false
-      }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "articles": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "tagList": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            },
+            "favorited": {
+              "type": "boolean"
+            },
+            "favoritesCount": {
+              "type": "integer"
+            },
+            "author": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "bio": {
+                  "type": "null"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "following": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "username",
+                "bio",
+                "image",
+                "following"
+              ]
+            }
+          },
+          "required": [
+            "slug",
+            "title",
+            "description",
+            "body",
+            "tagList",
+            "createdAt",
+            "updatedAt",
+            "favorited",
+            "favoritesCount",
+            "author"
+          ]
+        }
+      ]
     },
-    {
-      "slug": "file-slug",
-      "title": "Article title",
-      "description": "First article description",
-      "body": "Bla bla bla bla some random text that tells you about the life or something you don't really care about",
-      "tagList": [
-        "Bondar Academy",
-        "Video Lectures",
-        "Tutorials"
-      ],
-      "createdAt": "2024-01-27T21:50:38.825Z",
-      "updatedAt": "2024-01-27T21:50:38.825Z",
-      "favorited": false,
-      "favoritesCount": 243,
-      "author": {
-        "username": "Artem Bondar",
-        "bio": null,
-        "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
-        "following": false
-      }
+    "articlesCount": {
+      "type": "integer"
     }
-  ],
-  "articlesCount": 2
+  },
+  "required": [
+    "articles",
+    "articlesCount"
+  ]
 }

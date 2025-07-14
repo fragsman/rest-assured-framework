@@ -1,13 +1,41 @@
 package POJO.test;
 
-public class Login {
+public class LoginPayload {
 
     private User user;
 
-    public Login(){}
+    public class User{
+        private String email;
+        private String password;
 
-    public Login(User user){
-        this.user = user;
+        public User(){}
+
+        public User(String email, String password){
+            this.email = email;
+            this.password = password;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
+    public LoginPayload(){}
+
+    public LoginPayload(String email, String password){
+        this.user = new User(email,password);
     }
 
     public User getUser() {

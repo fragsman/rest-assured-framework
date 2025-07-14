@@ -1,18 +1,25 @@
 package api;
 
-import org.junit.jupiter.api.Tag;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import support.MyAssert;
+import utils.APIHandler;
 
 public class SchemaValidationTests {
 
     @Test
-    @Tag("pepe")
-    public void prueba_callbacks(){
-        System.out.println("Test callbacks ");
-        String name = "pepe";
-        assertEquals(1,2);
-        assertEquals(name,"pepe");
+    @DisplayName("Validate Article Schema")
+    public void validateArticleSchema(){
+        Response res = APIHandler.getArticles();
+        MyAssert.validateSchema(res,"schemas/articles_example.json");
     }
+
+    @Test
+    @DisplayName("Validate Article against Wrong Schema")
+    public void validateArticleSchemaShouldFail(){
+        Response res = APIHandler.getArticles();
+        MyAssert.validateSchema(res,"schemas/wrong_articles_example.json");
+    }
+
 }

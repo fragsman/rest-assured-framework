@@ -1,42 +1,56 @@
 package support;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
 import java.util.List;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MyAssert {
 
-    @Step("Verify text value")
+    @Step("Validate schema against schema definition file")
+    public static void validateSchema(Response res, String schema){
+        res.then().assertThat()
+            .body(matchesJsonSchemaInClasspath(schema));
+    }
+
+    @Step("Validate Status Code")
+    public static void validateStatusCode(Response res, Integer statusCode){
+        res.then().assertThat().statusCode(statusCode);
+    }
+
+    @Step("Verify a property of the response has a specific string value")
     public static void verifyPropertyValue(Response response, String property, String expected){
         response.then().body(property,equalTo(expected));
     }
 
-    @Step("Verify number value")
+    @Step("Verify a property of the response has a specific numeric value")
     public static void verifyPropertyValue(Response response, String property, Integer expected){
         response.then().body(property,equalTo(expected));
     }
 
-    @Step("Verify number of nodes")
+    @Step("Verify a property of the response has a specific number of nodes")
     public static void verifyNumberOfNodesFor(Response response, String property, int expected){
         response.then().body(property+".size()",equalTo(expected));
     }
 
     @Step("Verify the two list of strings are equals")
     public static void verifyEquals(List<String> apiTags, List<String> pageTags){
-        assertEquals(apiTags,pageTags);
+        assertThat(apiTags,equalTo(pageTags));
     }
 
-    //TODO: See https://github.com/fragsman/rest-assured-framework/issues/3
-    @Step("Verify two texts")
-    public static void verifyTextAreEquals(String expected, String actual){
-        assertEquals("'"+expected+"'", "'"+actual+"'");
+    @Step("Verify two texts are equals")
+    public static void verifyTextAreEquals(String actual, String expected){
+        assertThat(actual, equalTo(expected));
     }
 
-    @Step("Verify two numbers")
-    public static void verifyNumbersAreEquals(Integer expected, Integer actual){
-        assertEquals(expected, actual);
+    @Step("Verify two numbers are equals")
+    public static void verifyNumbersAreEquals(Integer actual, Integer expected){
+        assertThat(expected, equalTo(actual));
     }
 }

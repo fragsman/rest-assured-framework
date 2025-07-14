@@ -2,7 +2,7 @@ package POJO.test;
 
 import java.util.List;
 
-public class ArticlePOJO {
+public class ArticlePayload {
 
     public class Article{
 
@@ -55,9 +55,9 @@ public class ArticlePOJO {
 
     private Article article;
 
-    public ArticlePOJO(){}
+    public ArticlePayload(){}
 
-    public ArticlePOJO(Article article){
+    public ArticlePayload(Article article){
         this.article = article;
     }
 
