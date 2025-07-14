@@ -17,6 +17,16 @@ public class Interactor {
     private static int mediumRetryTimeDelay = 2000;
     private static int longRetryTimeDelay = 3000;
 
+    public static void clearLocalStorage(WebDriver driver){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.clear()");
+    }
+
+    public static void setLocalStorage(WebDriver driver, String key, String value){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("localStorage.setItem(arguments[0],arguments[1])",key,value);
+    }
+
     //Click that waits for element to be clickable
     public static void accurateClick(WebDriver driver, WebElement element){
         try{
@@ -167,23 +177,18 @@ public class Interactor {
     }
 
     /**
-     * A BlockingOverlays is basically a loading spinner that prevents the web to be used. This element does not always
-     * appear. When it does, it is for less than 2 seconds. Thus, it requires a special treatment.
+     * When visiting the feed, articles won't immediately load. There will be text
+     * indicating 'loading articles...' we will wait for it to disappear.
      */
-    public static void waitForBlockingOverlays(WebDriver driver){
-        final By overlayBlockers = By.cssSelector("div.blockUI.blockOverlay");
-        List<WebElement> elements = new ArrayList<WebElement>();
+    public static void waitForArticlePreview(WebDriver driver){
+        final By articlePreview = By.className("articlePreview");
         try{
-            log("findOverlays",driver,overlayBlockers.toString());
-            WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(1));
-            webDriverWait.until(ExpectedConditions.presenceOfElementLocated(overlayBlockers));
-            elements = driver.findElements(overlayBlockers);
+            log("findArticlePreview",driver,articlePreview.toString());
+            WebElement preview = findElement(driver,articlePreview);
+            WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            webDriverWait.until(ExpectedConditions.invisibilityOf(preview));
         }catch(Exception e){
-            Logger.Error("Failed to find overlays "+overlayBlockers);
-        }
-        if(elements.size() > 0) {
-            WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-            webDriverWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
+            Logger.Error("Failed to find article preview "+articlePreview);
         }
     }
 

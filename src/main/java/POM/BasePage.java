@@ -16,7 +16,12 @@ public class BasePage {
         driver.get(EnvironmentManager.getInstance().getBaseUrl());
     }
 
-    public void waitForBlockingOverlays(){
-        Interactor.waitForBlockingOverlays(driver);
+    public void setLocalStorage(String token){
+        Interactor.setLocalStorage(driver,"jwtToken",token);
     }
+
+    public void clearLocalStorage(){
+        Interactor.clearLocalStorage(driver);
+    }
+
 }
