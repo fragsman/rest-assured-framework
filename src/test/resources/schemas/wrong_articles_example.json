@@ -1,0 +1,48 @@
+{
+  "articles": [
+    {
+      "slug": 2,
+      "title": "The very first article example",
+      "description": "Just a description for this article",
+      "body": "I was so alone. .. yeahh you need to listen. I'm starting to trip.. I'm losing my grip. Avril Lavigne Song.",
+      "tagList": [
+        "qa career",
+        "Avril Lavigne",
+        "QA Skills",
+        "Value-Focused"
+      ],
+      "createdAt": "2024-01-27T21:52:32.682Z",
+      "updatedAt": "2024-01-27T21:52:32.682Z",
+      "favorited": false,
+      "favoritesCount": 690,
+      "author": {
+        "username": "Artem Bondar",
+        "bio": null,
+        "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
+        "following": false
+      }
+    },
+    {
+      "slug": "file-slug",
+      "title": "Article title",
+      "description": "First article description",
+      "body": "Bla bla bla bla some random text that tells you about the life or something you don't really care about",
+      "tagList": [
+        "Bondar Academy",
+        "Video Lectures",
+        "Tutorials"
+      ],
+      "createdAt": "2024-01-27T21:50:38.825Z",
+      "updatedAt": "2024-01-27T21:50:38.825Z",
+      "favorited": false,
+      "favoritesCount": 243,
+      "author": {
+        "username": "Artem Bondar",
+        "bio": null,
+        "image": "https://storage.googleapis.com/bondar-academy-visuals/Android.png",
+        "following": false
+      }
+    }
+  ],
+  "articlesCount": 2
+}
