@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: windows-latest
 
     steps:
@@ -32,6 +32,10 @@ jobs:
       continue-on-error: true
       run: mvn clean -Denv=GITHUB test
 
+  prepare-reports:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Load test report history
       uses: actions/checkout@v3
       if: always()
