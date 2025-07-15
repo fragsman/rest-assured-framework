@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -37,14 +37,14 @@ jobs:
       if: always()
       continue-on-error: true
       with:
-        ref: main
-        path: gh_pages
+        ref: gh-pages
+        path: gh-pages
 
     - name: Build test report
       uses: simple-elf/allure-report-action@v1.7
       if: always()
       with:
-        gh_pages: gh_pages
+        gh_pages: gh-pages
         allure_history: allure-history
         allure_results: build/allure-results
 
@@ -53,5 +53,5 @@ jobs:
       if: always()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: main
+        publish_branch: gh-pages
         publish_dir: allure-history
