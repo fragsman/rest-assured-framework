@@ -1,10 +1,8 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# The first job build, execute the test and upload the result as an artifact. The artifact is the output of job.
+# The second job generate the report and depends on the first job. Note that upload-artifact name matches with download-artifact name.
 
 name: Java CI with Maven
 
@@ -17,6 +15,8 @@ on:
 jobs:
   build-and-test:
     runs-on: windows-latest
+    outputs:
+      artifact-name: ${{steps.upload-artifact.outputs.artifact-name}}
 
     steps:
     - uses: actions/checkout@v4
@@ -33,12 +33,14 @@ jobs:
       run: mvn clean -Denv=GITHUB test
 
     - name: Upload tests results (to be used by Linux)
+      id: upload-artifact
       uses: actions/upload-artifact@v4
       with:
         name: test-results-windows
         path: target/results/allure-results
 
   prepare-reports:
+    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
