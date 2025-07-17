@@ -1,11 +1,14 @@
 package api;
 
+import POJO.test.ArticlePayload;
 import io.qameta.allure.Allure;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import support.MyAssert;
 import utils.APIHandler;
+import utils.JacksonUtil;
 
 public class APITests {
 
@@ -52,6 +55,26 @@ public class APITests {
     public void validateStatusCodeForTagsIs200(){
         Response res = APIHandler.getTags();
         MyAssert.validateStatusCode(res,200);
+    }
+
+    @Test
+    @DisplayName("Update article title")
+    public void updateArticleTitle(){
+        String token = APIHandler.requestLoginAndGetToken();
+
+        ArticlePayload article = JacksonUtil.deserializeJson("anArticle.json", ArticlePayload.class);
+        Response res = APIHandler.postArticle(article, token);
+        JsonPath jsonPath = res.jsonPath();
+        String slugId = jsonPath.getString("article.slug"); //id of the article created
+
+        String modifiedTitle = article.getArticle().getTitle() + "_updated";
+        article.getArticle().setTitle(modifiedTitle);
+        res = APIHandler.updateArticle(slugId, article, token);
+        jsonPath = res.jsonPath();
+        slugId = jsonPath.getString("article.slug"); //after update the slug changes again
+
+        APIHandler.deleteArticle(slugId,token);
+        MyAssert.verifyTextAreEquals(jsonPath.getString("article.title"),modifiedTitle);
     }
 
 }
