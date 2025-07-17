@@ -1,5 +1,6 @@
 package utils;
 
+import POJO.test.ArticlePayload;
 import POJO.test.LoginPayload;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
@@ -19,6 +20,13 @@ public class APIHandler {
                 .filter(new AllureRestAssured())
                 .when()
                 .delete("/articles/"+slugId);
+    }
+
+    @Step("Get article")
+    public static Response getArticle(String slugId){
+        return given()
+                .filter(new AllureRestAssured())
+                .get("/articles/"+slugId);
     }
 
     @Step("Get articles")
@@ -43,16 +51,15 @@ public class APIHandler {
     }
 
     @Step("Post Request")
-    public static Response postArticle(Object objectBody, String token){
-        Response res = given()
+    public static Response postArticle(ArticlePayload article, String token){
+        return given()
                 .auth()
                 .oauth2(token)
                 .filter(new AllureRestAssured())
                 .contentType(ContentType.JSON)
-                .body(objectBody)
+                .body(article)
                 .when()
                 .post("/articles/");
-        return res;
     }
 
     @Step("API Login")
@@ -67,5 +74,17 @@ public class APIHandler {
 
         JsonPath jsonPath = res.jsonPath();
         return jsonPath.getString("user.token");
+    }
+
+    @Step("Update article")
+    public static Response updateArticle(String slugId, ArticlePayload article, String token){
+        return given()
+                .auth()
+                .oauth2(token)
+                .filter(new AllureRestAssured())
+                .contentType(ContentType.JSON)
+                .body(article)
+                .when()
+                .put("/articles/"+slugId);
     }
 }
